@@ -7,7 +7,7 @@
     <li class="breadcrumb-item active">Checkout</li>
 </ol>
 
-<?= form_open('buy') ?>
+<?= form_open('checkout/buy') // Perbaikan: Mengarahkan ke rute 'buy' di dalam grup checkout ?>
 <div class="row">
     <div class="col-md-8">
         <div class="card">
@@ -75,11 +75,10 @@
         let ongkir = 0;
         const subtotal = <?= $total ?>;
         
-        // Inisialisasi Select2 untuk dropdown kota
         $('#kota_tujuan').select2({
             placeholder: 'Ketik nama kota/kabupaten...',
             ajax: {
-                url: "<?= site_url('get-location') ?>",
+                url: "<?= site_url('checkout/get-location') ?>", // PERBAIKAN DI SINI
                 dataType: 'json',
                 delay: 250,
                 data: function(params) {
@@ -96,12 +95,11 @@
             }
         });
 
-        // Event handler saat kota tujuan dipilih
         $('#kota_tujuan').on('change', function() {
             const id_kota = $(this).val();
             if (id_kota) {
                 $.ajax({
-                    url: "<?= site_url('get-cost') ?>",
+                    url: "<?= site_url('checkout/get-cost') ?>", // PERBAIKAN DI SINI
                     type: 'GET',
                     data: { 'destination': id_kota },
                     dataType: 'json',
@@ -109,7 +107,7 @@
                         $('#layanan_antar_jemput').empty().prop('disabled', false);
                         $('#layanan_antar_jemput').append('<option value="">Pilih Layanan...</option>');
                         data.forEach(function(layanan) {
-                            const text = layanan.service + ' (' + layanan.description + ') - ' + 'Rp ' + layanan.cost[0].value;
+                            const text = layanan.service + ' (' + layanan.description + ') - ' + 'Rp ' + layanan.cost[0].value.toLocaleString('id-ID');
                             $('#layanan_antar_jemput').append(new Option(text, layanan.cost[0].value));
                         });
                     }
@@ -119,7 +117,6 @@
             }
         });
         
-        // Event handler saat layanan antar jemput dipilih
         $('#layanan_antar_jemput').on('change', function() {
             ongkir = parseInt($(this).val()) || 0;
             hitungTotal();
