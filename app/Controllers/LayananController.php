@@ -4,8 +4,11 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
+<<<<<<< HEAD
 use App\Models\LayananModel;
 
+=======
+>>>>>>> 9a6e1ac30f58b7952b725f80971aa35168a9aa1b
 
 class LayananController extends BaseController
 {
