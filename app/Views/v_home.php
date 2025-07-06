@@ -21,7 +21,7 @@
                     <p><?= number_to_currency($item['harga'], 'IDR') ?></p>
                 </div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
-                     <?= form_open('riwayat/add', ['class' => 'd-inline']) ?>
+                    <?= form_open('riwayat/add', ['class' => 'd-inline']) ?>
                         <?= form_hidden('id', $item['id']); ?>
                         <?= form_hidden('nama', $item['nama']); ?>
                         <?= form_hidden('harga', $item['harga']); ?>
